@@ -7,18 +7,18 @@ const esquemasDeLetras = new Schema({
     tipo: String,
     dificultad:String,
     modulo1: 
-        {
+        [{
             audio: String,
             titulo: String,
             contenido: String,
-        },
+        }],
     
     modulo2: 
-        {
+        [{
             audio: String,
             titulo: String,
             contenido: String,
-        },
+        }],
     
     usuario: String,
     leccionesCompletadas: {

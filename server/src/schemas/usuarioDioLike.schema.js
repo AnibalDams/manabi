@@ -7,7 +7,8 @@ const esquemaDeQueLeDioLikeElUsuario = new Schema({
     UsuarioQueLaCreo: String,
     avatarDelCreador:String,
     idDeLaDiscusion: String,
-    usuarioQueLeDioLike:String
+    usuarioQueLeDioLike:String,
+    cuandoLeDioLike:{type:Date,default:Date.now}
   
     
 });

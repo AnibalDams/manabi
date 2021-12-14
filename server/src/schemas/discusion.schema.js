@@ -6,7 +6,7 @@ const esquemaDeDiscusiones = new Schema({
     titulo: String,
     contenido: String,
     usuarioQueLaCreo: String,
-   
+    creadaHace:{type:Date,default:Date.now},
     likes: {
         type: Number,
         default: 0,

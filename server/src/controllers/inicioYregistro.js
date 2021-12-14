@@ -1,7 +1,7 @@
 import usuario from "../schemas/usuario.schema";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-
+import enviarEmail from "./mandarEmail";
 //objeto que qdentro tiene dos funciones que son las encargadas de registrar a los usuarios y logearlos
 const inicioDeSesionYregistro = {
     async registro(
@@ -15,12 +15,15 @@ const inicioDeSesionYregistro = {
         
     ) {
         const contraseñaEncriptada = await bcrypt.hash(contraseña,10);
+        let codigoDeActivacionNumero = Math.floor(100000 + Math.random() * 900000)
+        let codigoDeActivacion = codigoDeActivacionNumero.toString()
         const Usuario = new usuario({
             nombre: nombre,
             apellido: apellido,
             nombreDeUsuario: nombreDeUsuario,
             correoElectronico: correoElectronico,
             contraseña: contraseñaEncriptada,
+            codigoDeActivacion:codigoDeActivacion,
             discapacidadVisual: discapacidadVisual,
             temaDeLaApp:temaDeLaApp
         });
@@ -30,6 +33,7 @@ const inicioDeSesionYregistro = {
         const existeCorreoElectronico = await usuario.findOne({
             correoElectronico: correoElectronico,
         });
+
         if (existeNombreDeUsuario) {
             if (existeCorreoElectronico) {
                 return { mensaje: "correo y usuario ya en uso" };
@@ -46,6 +50,7 @@ const inicioDeSesionYregistro = {
                 };
             } else {
                 await Usuario.save();
+                enviarEmail(correoElectronico,codigoDeActivacion,'activacion',nombre,apellido)
                 return Usuario;
             }
         }
@@ -65,6 +70,7 @@ const inicioDeSesionYregistro = {
                         apellido: hayUsuario.apellido,
                         fotoDeUsuario: hayUsuario.fotoDeUsuario,
                         nombreDeUsuario: hayUsuario.nombreDeUsuario,
+                        activa:hayUsuario.activa,
                         correoElectronico: hayUsuario.correoElectronico,
                     },
                     process.env.JWTKEY

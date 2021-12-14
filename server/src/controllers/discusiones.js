@@ -72,9 +72,16 @@ const discusionesFuncs = {
     },
     async mostrarDiscusiones() {
         const discusiones = await discusion.find();
-        return {
-            discusiones: discusiones,
-        };
+        if (discusiones) {
+            return {
+                discusiones: discusiones,
+            };            
+        }else{
+            return{
+                mensaje:'No se han creado discusiones aun'
+            }
+        }
+
     },
     async mostrarUnaDiscusion(id) {
         const unaDiscusion = await discusion.findById(id);

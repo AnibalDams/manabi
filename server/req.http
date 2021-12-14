@@ -1,13 +1,14 @@
-GET http://localhost:3000/usuario/perfil?t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWI1NjVhMTZmNDRjNDVhMjM1NTRkZTMiLCJub21icmUiOiJkYXZpbCIsImFwZWxsaWRvIjoidGlxdWluIiwiZm90b0RlVXN1YXJpbyI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMC9pbWcvYXZhdGFyLmpwZyIsIm5vbWJyZURlVXN1YXJpbyI6ImRhdmlsVCIsImNvcnJlb0VsZWN0cm9uaWNvIjoiZWxuaW5pMTIwQGdtYWlsLmNvbSIsImlhdCI6MTYzOTI3OTEwMX0.U48cXTqwAGUQavNTqeDgBn4WedTLhInfTdIyEKgh9Ow HTTP/1.1
+GET http://localhost:3000/usuario/perfil?t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWI5MWI2ZWRiNmZlMzkxNTQ4MjEwYWQiLCJub21icmUiOiJBbmliYWwiLCJhcGVsbGlkbyI6IkRhbXMiLCJmb3RvRGVVc3VhcmlvIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwL2ltZy9hdmF0YXIuanBnIiwibm9tYnJlRGVVc3VhcmlvIjoiRGFtc1MiLCJjb3JyZW9FbGVjdHJvbmljbyI6ImVsbmluaTEyMEBob3RtYWlsLmNvbSIsImlhdCI6MTYzOTUyMTM4MX0.mCFaa-NLI_iNNzGmMgInMDcviVaNEMbJVTFyyiF7hRY HTTP/1.1
 Content-Type:application/json
 
 {
+    "codigo":"430247",
     "titulo":"I have a problem",
     "contenido":"JAJAJAJAJ estupida",
-    "nombre":"davil",
-    "apellido":"tiquin",
-    "nombreDeUsuario":"davilT",
-    "correoElectronico":"elnini120@gmail.com",
+    "nombre":"Anibal",
+    "apellido":"Dams",
+    "nombreDeUsuario":"DamsS",
+    "correoElectronico":"elnini120@hotmail.com",
     "contraseña":"123456787",
     "discapacidadVisual":true,
     "temaDeLaApp":"dark"

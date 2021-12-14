@@ -17,7 +17,8 @@ import rutaParaResponderUnaDiscusion from "./rutas/replyDiscussion.routes";
 import rutaParaEditarUnaRespuesta from "./rutas/editReply.routes";
 import rutaParaEliminarUnaRespuesta from "./rutas/deleteReply.routes";
 import rutaParaBuscarUsuarios from "./rutas/searchUser.routes";
-import rutaParaActualizarElPerfil from './rutas/updateProfile.routes'
+import rutaParaActualizarElPerfil from "./rutas/updateProfile.routes";
+import rutaParaConfirmarElCorreo from "./rutas/confirmEmail.routes";
 
 //importaciones para las rutas de pruebas
 import letras from "../schemas/letras.schema";
@@ -81,7 +82,16 @@ router.put(
     autenticacionConJwt,
     rutaParaEditarUnaRespuesta
 );
-router.put('/usuario/perfil/actualizar',autenticacionConJwt,rutaParaActualizarElPerfil)
+router.put(
+    "/usuario/perfil/actualizar",
+    autenticacionConJwt,
+    rutaParaActualizarElPerfil
+);
+router.put(
+    "/usuario/confirmar",
+    autenticacionConJwt,
+    rutaParaConfirmarElCorreo
+);
 
 // Rutas DELETE
 

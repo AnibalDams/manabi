@@ -49,17 +49,17 @@ const SignUp = async (req, res) => {
             letraSiguiente: "i",
             dificultad: "facil",
             tipo: "letra",
-            modulo1: {
+            modulo1: [{
                 audio: "Link Del Audio",
                 titulo: "titulo",
                 contenido: "contenido",
-            },
+            }],
 
-            modulo2: {
+            modulo2: [{
                 audio: "Link Del Audio",
                 titulo: "titulo",
                 contenido: "contenido",
-            },
+            }],
 
             usuario: nombreDeUsuario,
         },
