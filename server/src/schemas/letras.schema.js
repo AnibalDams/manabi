@@ -23,7 +23,7 @@ const esquemasDeLetras = new Schema({
     usuario: String,
     leccionesCompletadas: {
         type: Number,
-        max: 4,
+        max: 2,
         default: 0,
     },
     completado: {

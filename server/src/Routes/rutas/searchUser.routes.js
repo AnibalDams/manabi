@@ -1,5 +1,6 @@
 import usuarios from "../../schemas/usuario.schema";
 import letras from "../../schemas/letras.schema";
+import discusiones from '../../schemas/discusion.schema'
 
 const buscarUsuario = async (req, res) => {
     const { username } = req.params;
@@ -7,7 +8,8 @@ const buscarUsuario = async (req, res) => {
 
     if (usuario) {
         const letrasDelUsuario = await letras.find({ usuario: username });
-        res.json({ usuario: usuario, letras: letrasDelUsuario });
+        const discusionesDelUsuario = await discusiones.find({usuarioQueLaCreo:username})
+        res.json({ usuario: usuario, letras: letrasDelUsuario,discusiones:discusionesDelUsuario });
     } else {
         res.json({ mensaje: "este usuario no existe" });
     }

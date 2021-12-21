@@ -1,6 +1,5 @@
 import { Router } from "express";
 import autenticacionConJwt from "../controllers/autenticacion";
-
 import multerUploads from '../config/multer'
 
 import rutaDeRegistro from "./rutas/signUp.routes";
@@ -132,7 +131,7 @@ router.put(
     rutaParaConfirmarElCorreo
 );
 
-router.put('/usuario/perfil/cambiarfoto',multerUploads,rutaParaCambiarLaFotoDePerfil)
+router.put('/usuario/perfil/cambiarfoto',multerUploads,autenticacionConJwt,rutaParaCambiarLaFotoDePerfil)
 
 // Rutas DELETE
 

@@ -1,9 +1,14 @@
-import {dataUri} from '../../config/multer'
-import {uploader} from '../../config/cloudinary'
+import cambiarFoto from "../../controllers/cambiarFotodePerfil"
+
 
 const cambiarFotoDePerfil = async (req,res) =>{
-    const result = await uploader.upload(req.file.path)
-    res.send(result)
+    if (req.file) {
+        const cambiar = await cambiarFoto(req.file.path,req.user.nombreDeUsuario)
+        res.json(cambiar)
+    } else {
+        res.json({mensaje:'introduzca una foto por favor '})
+    }
+    
 }
 
 

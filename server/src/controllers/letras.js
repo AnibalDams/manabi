@@ -29,7 +29,7 @@ const letras = {
             letra: Letra,
         });
         if (letraU.completado == false) {
-            if (letraU.leccionesCompletadas === 4) {
+            if (letraU.leccionesCompletadas === 2) {
                 await letra.findOneAndUpdate(
                     {
                         usuario: nombreDeUsuario,

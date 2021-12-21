@@ -14,82 +14,87 @@ const actualizarPerfil = async (
     contraseña,
     contraseñaNueva
 ) => {
-    const correoConfirmado = await usuario.findOne({
-        nombreDeUsuario: nombreDeUsuarioAnterior,
-    });
-    if (!correoConfirmado.activada) {
-        return {
-            mensaje:
-                "Para actualizar los datos de la cuenta, necesitas primero confirmar el correo electronico",
-        };
-    } else {
-        const existeNombreDeUsuario = await usuario.findOne({
-            nombreDeUsuario: nombreDeUsuarioNuevo,
+    try {
+        const correoConfirmado = await usuario.findOne({
+            nombreDeUsuario: nombreDeUsuarioAnterior,
         });
-        if (existeNombreDeUsuario) {
+        if (!correoConfirmado.activada) {
             return {
-                mensaje: "Este nombre de usuario ya está en uso",
+                mensaje:
+                    "Para actualizar los datos de la cuenta, necesitas primero confirmar el correo electronico",
             };
         } else {
-            const contraseñaEncriptada = await bcrypt.hash(contraseñaNueva, 10);
-            await usuario.findOneAndUpdate(
-                {
+            const existeNombreDeUsuario = await usuario.findOne({
+                nombreDeUsuario: nombreDeUsuarioNuevo,
+            });
+            if (existeNombreDeUsuario) {
+                return {
+                    mensaje: "Este nombre de usuario ya está en uso",
+                };
+            } else {
+                const contraseñaEncriptada = await bcrypt.hash(contraseñaNueva, 10);
+                await usuario.findOneAndUpdate(
+                    {
+                        nombreDeUsuario: nombreDeUsuarioAnterior,
+                    },
+                    {
+                        nombreDeUsuario: nombreDeUsuarioNuevo,
+                        nombre: nombreNuevo,
+                        apellido: apellidoNuevo,
+                        contraseña: contraseñaEncriptada,
+                    }
+                );
+                // actualizo todos los registros de la actividad que haya hecho el usuario
+    
+                const likesDelUsuario = await usuarioDioLike.find({
+                    usuarioQueLeDioLike: nombreDeUsuarioAnterior,
+                });
+                const discusionesALasQueLeDioLike = await likeDiscusion.find({
                     nombreDeUsuario: nombreDeUsuarioAnterior,
-                },
-                {
-                    nombreDeUsuario: nombreDeUsuarioNuevo,
-                    nombre: nombreNuevo,
-                    apellido: apellidoNuevo,
-                    contraseña: contraseñaEncriptada,
-                }
-            );
-            // actualizo todos los registros de la actividad que haya hecho el usuario
-
-            const likesDelUsuario = await usuarioDioLike.find({
-                usuarioQueLeDioLike: nombreDeUsuarioAnterior,
-            });
-            const discusionesALasQueLeDioLike = await likeDiscusion.find({
-                nombreDeUsuario: nombreDeUsuarioAnterior,
-            });
-            const respuestasQueHizo = await respuestas.find({
-                usuarioQueLaHizo: nombreDeUsuarioAnterior,
-            });
-            const discusionesQueCreo = await discusiones.find({
-                usuarioQueLaCreo: nombreDeUsuarioAnterior,
-            });
-            const letrasDelUsuario = await letras.find({
-                usuario: nombreDeUsuarioAnterior,
-            });
-            letrasDelUsuario.forEach(async (el) => {
-                await letras.findByIdAndUpdate(el._id, {
-                    usuario: nombreDeUsuarioNuevo,
                 });
-            });
-            discusionesQueCreo.forEach(async (el) => {
-                await discusiones.findByIdAndUpdate(el._id, {
-                    usuarioQueLaCreo: nombreDeUsuarioNuevo,
+                const respuestasQueHizo = await respuestas.find({
+                    usuarioQueLaHizo: nombreDeUsuarioAnterior,
                 });
-            });
-            respuestasQueHizo.forEach(async (el) => {
-                await respuestas.findByIdAndUpdate(el._id, {
-                    usuarioQueLaHizo: nombreDeUsuarioNuevo,
+                const discusionesQueCreo = await discusiones.find({
+                    usuarioQueLaCreo: nombreDeUsuarioAnterior,
                 });
-            });
-            discusionesALasQueLeDioLike.forEach(async (el) => {
-                await likeDiscusion.findByIdAndUpdate(el._id, {
-                    nombreDeUsuario: nombreDeUsuarioNuevo,
+                const letrasDelUsuario = await letras.find({
+                    usuario: nombreDeUsuarioAnterior,
                 });
-            });
-            likesDelUsuario.forEach(async (el) => {
-                await usuarioDioLike.findByIdAndUpdate(el._id, {
-                    usuarioQueLeDioLike: nombreDeUsuarioNuevo,
+                letrasDelUsuario.forEach(async (el) => {
+                    await letras.findByIdAndUpdate(el._id, {
+                        usuario: nombreDeUsuarioNuevo,
+                    });
                 });
-            });
-
-            return {
-                mensaje: "Usuario actualizado satisfactoriamente",
-            };
+                discusionesQueCreo.forEach(async (el) => {
+                    await discusiones.findByIdAndUpdate(el._id, {
+                        usuarioQueLaCreo: nombreDeUsuarioNuevo,
+                    });
+                });
+                respuestasQueHizo.forEach(async (el) => {
+                    await respuestas.findByIdAndUpdate(el._id, {
+                        usuarioQueLaHizo: nombreDeUsuarioNuevo,
+                    });
+                });
+                discusionesALasQueLeDioLike.forEach(async (el) => {
+                    await likeDiscusion.findByIdAndUpdate(el._id, {
+                        nombreDeUsuario: nombreDeUsuarioNuevo,
+                    });
+                });
+                likesDelUsuario.forEach(async (el) => {
+                    await usuarioDioLike.findByIdAndUpdate(el._id, {
+                        usuarioQueLeDioLike: nombreDeUsuarioNuevo,
+                    });
+                });
+    
+                return {
+                    mensaje: "Usuario actualizado satisfactoriamente",
+                };
+            }
         }
+    } catch (error) {
+        console.error(error)
+        return error
     }
 };
 
