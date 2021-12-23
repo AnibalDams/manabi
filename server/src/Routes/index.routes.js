@@ -42,6 +42,8 @@ import rutaParaConfirmarElCorreo from "./rutas/confirmEmail.routes";
 
 import rutaParaCambiarLaFotoDePerfil from './rutas/changeProfilePhoto.routes'
 
+import {mostrarUnSoloAspectoTeorico,mostrarAspectosTeoricos,crearAspectosTeoricos} from './rutas/theoryAspects.routes'
+
 //importaciones para las rutas de pruebas
 
 import letras from "../schemas/letras.schema";
@@ -77,6 +79,9 @@ router.get("/usuario/perfil", autenticacionConJwt, rutaDePerfil);
 
 router.get("/:username", autenticacionConJwt, rutaParaBuscarUsuarios);
 
+router.get('/aspectosTeoricos/mostrar',mostrarAspectosTeoricos)
+router.get('/aspectosTeoricos/mostrar/:id',mostrarUnSoloAspectoTeorico)
+
 // Rutas POST
 
 router.post("/signup", rutaDeRegistro);
@@ -92,6 +97,8 @@ router.post(
     autenticacionConJwt,
     rutaParaResponderUnaDiscusion
 );
+
+router.post('/aspectosTeoricos/crear',crearAspectosTeoricos) 
 
 // Rutas PUT
 
